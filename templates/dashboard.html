@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SafeWalk Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    #map {
+      height: 300px;
+      width: 100%;
+      margin-top: 20px;
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 15px;
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #ccc;
+    }
+    .safety-msg {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 1.1em;
+      color: #555;
+      font-weight: 500;
+    }
+    .btn-walk {
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      margin: 20px auto;
+    }
+    .profile-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: white;
+      min-width: 160px;
+      border: 1px solid #ccc;
+      z-index: 1;
+    }
+    .dropdown-content a {
+      color: black;
+      padding: 10px 12px;
+      text-decoration: none;
+      display: block;
+    }
+    .profile-dropdown:hover .dropdown-content {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">
+  <button class="btn btn-outline-secondary" onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
+  </button>
+  <h4 class="m-0">SafeWalk</h4>
+  <div class="profile-dropdown">
+    <img src="/static/img/avatar.png" alt="User" width="36" height="36" class="rounded-circle">
+    <div class="dropdown-content">
+      <a href="#">Settings</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <!-- Side menu (mobile friendly) -->
+  <div id="sideMenu" class="d-none mb-4">
+    <ul class="list-group">
+      <li class="list-group-item"><a href="#">My Trusted Contact List</a></li>
+      <li class="list-group-item"><a href="#">My History Walks</a></li>
+      <li class="list-group-item"><a href="#">Unsafe Routes Reported</a></li>
+      <li class="list-group-item"><a href="#">Share with Loved Ones</a></li>
+    </ul>
+  </div>
+
+  <div class="safety-msg">
+    <p>SafeWalk keeps you safe during your solo commutes — walk smart, stay connected!</p>
+  </div>
+
+  <div id="startSection" class="text-center">
+    <button id="startWalkBtn" class="btn btn-success btn-walk">Start Walking with SafeWalk</button>
+  </div>
+
+  <div id="walkingGif" class="text-center d-none">
+    <img src="/static/img/walking.gif" alt="Walking" style="height: 100px;">
+  </div>
+
+  <div id="map"></div>
+
+  <div class="mt-4 text-center">
+    <p class="fw-medium">Use this button to share your current location with trusted users in your list</p>
+    <button class="btn btn-warning btn-walk" onclick="alertContacts()">Alert My Contacts</button>
+  </div>
+
+  <div class="text-center mt-3">
+    <button class="btn btn-danger btn-walk" onclick="endWalk()">End My Walk</button>
+  </div>
+
+  <div id="summarySection" class="d-none mt-5 text-center">
+    <h5>Walk Summary</h5>
+    <p><strong>Start:</strong> <span id="startTimeDisplay"></span></p>
+    <p><strong>Start Location:</strong> <span id="startLocation"></span></p>
+    <p><strong>Total Time:</strong> <span id="durationDisplay"></span></p>
+    <p><strong>Steps Taken:</strong> <span id="stepsDisplay">Estimated...</span></p>
+    <p><strong>End:</strong> <span id="endTimeDisplay"></span></p>
+    <p><strong>End Location:</strong> <span id="endLocation"></span></p>
+    <div class="alert alert-success mt-4">
+      You did an amazing job walking safely! Stay alert on solo walks and spread awareness! 🌟
+    </div>
+    <a href="/dashboard" class="btn btn-primary mt-3">Go Back to Homepage</a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="{{ url_for('static', filename='map.js') }}"></script>
+
+</body>
+</html>
