@@ -1,7 +1,6 @@
 # SafeWalk – Community Safety Companion
 
-SafeWalk is a lightweight app that helps people feel safer during solo walks. Share your location with trusted contacts, track your walk route, and report unsafe areas.
-
+SafeWalk is a lightweight app that helps people feel safer during solo walks. Share your location with trusted contacts and track your walk route.
 ## 🔧 Installation
 
 1. Clone the repo
@@ -18,15 +17,4 @@ SafeWalk is a lightweight app that helps people feel safer during solo walks. Sh
 - Leaflet.js for maps
 
 
-### for me ###
-pip freeze > requirements.txt -add at the end of the project
-🌍 B. Public Hosting Options
-If you want anyone on the internet to use SafeWalk, you’ll need to host it.
-
-✅ Easy Options:
-Option	Description
-Render	Free Flask hosting. Auto-deploys from GitHub.
-Railway	Flask-friendly. Minimal setup, generous free tier.
-Glitch	Good for demos. May be slow under load.
-Fly.io	Free/cheap deployments for small Python apps.
 
